@@ -1,15 +1,15 @@
 /* Copyright (c) 2020 MTHS All rights reserved
  *
- * Created by: Josiah R
+ * Created by: Josiah
  * Created on: Apr 2026
- * This program will find the distance the object and determine if the distance is greater or less than 10.
+ * This program will 
 */
 
-// variable
-let numberDistance: number = 0
+// variables
+let distanceNumber: number = 0
 let neopixelStrip: neopixel.Strip = null
 
-// startup
+// setup
 basic.clearScreen()
 neopixelStrip = neopixel.create(DigitalPin.P16, 4, NeoPixelMode.RGB)
 neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.Black))
@@ -19,37 +19,40 @@ neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Black))
 neopixelStrip.show()
 basic.showIcon(IconNames.Happy)
 
-// find the distance with sonar
+// gets the distance
 input.onButtonPressed(Button.A, function () {
-    basic.clearScreen()
-    numberDistance = sonar.ping(
-        DigitalPin.P1, // trigger
-        DigitalPin.P2, // echo
+    distanceNumber = sonar.ping(
+        DigitalPin.P1,
+        DigitalPin.P2,
         PingUnit.Centimeters
     )
-    basic.showString((numberDistance) + " cm")
-    basic.showIcon(IconNames.Yes)
-
-    // compare
-    if (numberDistance < 10) {
+    basic.clearScreen()
+    basic.showNumber(distanceNumber)
+    basic.showString(' cm')
+    if (distanceNumber < 10) {
+        // if distance is less than 10 cm
+        basic.showIcon(IconNames.No)
         neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.Red))
         neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.Red))
         neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.Red))
         neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Red))
-        neopixelStrip.show()
-    }
-
+    } 
     else {
+        // if distance is more than or equal 10 cm
+        basic.showIcon(IconNames.Yes)
         neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.Green))
         neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.Green))
         neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.Green))
         neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Green))
-        neopixelStrip.show()
     }
-
-    // resets
-    pause(5000)
-    basic.showIcon(IconNames.Happy)
-    neopixelStrip.clear()
+    // setup for the end
     neopixelStrip.show()
+    basic.pause(5000)
+    basic.clearScreen()
+    neopixelStrip.setPixelColor(0, neopixel.colors(NeoPixelColors.Black))
+    neopixelStrip.setPixelColor(1, neopixel.colors(NeoPixelColors.Black))
+    neopixelStrip.setPixelColor(2, neopixel.colors(NeoPixelColors.Black))
+    neopixelStrip.setPixelColor(3, neopixel.colors(NeoPixelColors.Black))
+    neopixelStrip.show()
+    basic.showIcon(IconNames.Happy)
 })
