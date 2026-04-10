@@ -2,7 +2,7 @@
  *
  * Created by: Josiah
  * Created on: Apr 2026
- * This program will 
+ * This program will get the distance if the object is to close the LED will glow red if it is a safe distance it will turn green 
 */
 
 // variables
